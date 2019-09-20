@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="DIh-cN-N20">
+    <device id="retina6_1" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14490.49"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--Show Splash Screen View Controller-->
+        <scene sceneID="TnE-3a-Djl">
+            <objects>
+                <viewController id="DIh-cN-N20" customClass="ShowSplashScreenViewController" customModule="ShoppingList" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="84k-iF-HBM">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Make a List" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Brc-RD-HeB">
+                                <rect key="frame" x="87" y="418" width="239" height="60"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="50"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="Brc-RD-HeB" firstAttribute="centerY" secondItem="84k-iF-HBM" secondAttribute="centerY" id="N7A-db-yze"/>
+                            <constraint firstItem="Brc-RD-HeB" firstAttribute="centerX" secondItem="84k-iF-HBM" secondAttribute="centerX" id="gqt-RH-ddM"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="Z2g-bl-ple"/>
+                    </view>
+                    <connections>
+                        <segue destination="Smz-Yk-6NE" kind="show" identifier="showSplashScreen" id="Owf-kk-iPE"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="7Py-EC-88W" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-794" y="19"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="fpj-3p-Yti">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="Smz-Yk-6NE" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="fnV-h1-2rz">
+                        <rect key="frame" x="0.0" y="44" width="414" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="kxl-a6-mw9" kind="relationship" relationship="rootViewController" id="OKc-bO-KpQ"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="P9D-1z-ewg" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="302.89855072463769" y="26.785714285714285"/>
+        </scene>
+        <!--Make a List-->
+        <scene sceneID="cmS-Cj-qOa">
+            <objects>
+                <tableViewController id="kxl-a6-mw9" customClass="ShoppingListVC" customModule="ShoppingList" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="3nJ-wI-aNc">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <prototypes>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="reuseIdentifier" rowHeight="80" id="fC7-Ww-4Q4">
+                                <rect key="frame" x="0.0" y="28" width="414" height="80"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="fC7-Ww-4Q4" id="aHQ-g4-NTH">
+                                    <rect key="frame" x="0.0" y="0.0" width="414" height="79.5"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="EVg-Cg-9Hb">
+                                            <rect key="frame" x="50" y="25.5" width="57" height="29"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="24"/>
+                                            <nil key="textColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
+                                    <constraints>
+                                        <constraint firstItem="EVg-Cg-9Hb" firstAttribute="leading" secondItem="aHQ-g4-NTH" secondAttribute="leadingMargin" constant="30" id="GQu-Zk-LxX"/>
+                                        <constraint firstItem="EVg-Cg-9Hb" firstAttribute="centerY" secondItem="aHQ-g4-NTH" secondAttribute="centerY" id="taK-1l-h2f"/>
+                                    </constraints>
+                                </tableViewCellContentView>
+                            </tableViewCell>
+                        </prototypes>
+                        <sections/>
+                        <connections>
+                            <outlet property="dataSource" destination="kxl-a6-mw9" id="tw0-N6-5a2"/>
+                            <outlet property="delegate" destination="kxl-a6-mw9" id="0xW-Te-OWh"/>
+                        </connections>
+                    </tableView>
+                    <navigationItem key="navigationItem" title="Make a List" id="OB9-Qo-Uye"/>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="OEo-a1-yVA" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1235" y="27"/>
+        </scene>
+    </scenes>
+</document>
