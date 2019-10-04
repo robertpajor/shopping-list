@@ -14,7 +14,6 @@
 		E147CAD022D4E23500D37B25 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E147CACE22D4E23500D37B25 /* LaunchScreen.storyboard */; };
 		E147CADB22D4E23500D37B25 /* ShoppingListTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E147CADA22D4E23500D37B25 /* ShoppingListTests.swift */; };
 		E147CAE622D4E23500D37B25 /* ShoppingListUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E147CAE522D4E23500D37B25 /* ShoppingListUITests.swift */; };
-		E15FCDBC22E1A54B0002A123 /* ShowSplashScreenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E15FCDBB22E1A54B0002A123 /* ShowSplashScreenViewController.swift */; };
 		E1A59CBF22E83BE000D83A0C /* ShoppingListVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1A59CBE22E83BE000D83A0C /* ShoppingListVC.swift */; };
 /* End PBXBuildFile section */
 
@@ -49,7 +48,6 @@
 		E147CAE122D4E23500D37B25 /* ShoppingListUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ShoppingListUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		E147CAE522D4E23500D37B25 /* ShoppingListUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShoppingListUITests.swift; sourceTree = "<group>"; };
 		E147CAE722D4E23500D37B25 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		E15FCDBB22E1A54B0002A123 /* ShowSplashScreenViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowSplashScreenViewController.swift; sourceTree = "<group>"; };
 		E1A59CBE22E83BE000D83A0C /* ShoppingListVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShoppingListVC.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -103,7 +101,6 @@
 			children = (
 				E147CAC222D4E23300D37B25 /* AppDelegate.swift */,
 				E147CAC422D4E23300D37B25 /* ViewController.swift */,
-				E15FCDBB22E1A54B0002A123 /* ShowSplashScreenViewController.swift */,
 				E147CAC622D4E23300D37B25 /* Main.storyboard */,
 				E147CACC22D4E23500D37B25 /* Assets.xcassets */,
 				E147CACE22D4E23500D37B25 /* LaunchScreen.storyboard */,
@@ -284,7 +281,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				E1A59CBF22E83BE000D83A0C /* ShoppingListVC.swift in Sources */,
-				E15FCDBC22E1A54B0002A123 /* ShowSplashScreenViewController.swift in Sources */,
 				E147CAC522D4E23300D37B25 /* ViewController.swift in Sources */,
 				E147CAC322D4E23300D37B25 /* AppDelegate.swift in Sources */,
 			);
