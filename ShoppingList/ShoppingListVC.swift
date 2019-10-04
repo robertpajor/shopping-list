@@ -20,51 +20,33 @@ class ShoppingListVC: UIViewController {
     }
 
     func showAddAlert() {
-        let addAlert = UIAlertController(title: "", message: "", preferredStyle: .alert)
+        let titleText = "Add new list"
+        let placeholderText = "List name"
+        let confirmButtonText = "OK"
+        let cancelButtonText = "Cancel"
 
-        let attributedString = NSAttributedString(string: "Add new list", attributes: [
-            NSAttributedString.Key.font : UIFont.systemFont(ofSize: 17),
-            NSAttributedString.Key.foregroundColor: UIColor(named: "titleGrey")!
-            ])
-        addAlert.setValue(attributedString, forKey: "attributedTitle")
+        let addAlert = UIAlertController(title: "", message: "", preferredStyle: .alert)
+        addAlert.setValue(getAttributedString(for: titleText), forKey: "attributedTitle")
 
         addAlert.addTextField { (textField) in
-            textField.placeholder = "List name"
+            textField.placeholder = placeholderText
         }
 
-        addAlert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
-        addAlert.addAction(UIAlertAction(title: "OK", style: .default, handler: { [weak addAlert] (_) in
+        addAlert.addAction(UIAlertAction(title: cancelButtonText, style: .cancel, handler: nil))
+        addAlert.addAction(UIAlertAction(title: confirmButtonText, style: .default, handler: { [weak addAlert] (_) in
             let textField = addAlert?.textFields![0]
             let textFieldText = textField!.text
             print(textFieldText!)
         }))
         addAlert.view.tintColor = UIColor(named: "subtitleGrey")
+
         self.present(addAlert, animated: true)
     }
 
-//    private func getAttributedString(for text: String) -> NSAttributedString {
-//        let attributedString = NSAttributedString(string: text, attributes: [
-//            NSAttributedString.Key.foregroundColor: UIColor(named: "titleGrey")
-//            ])
-//        return attributedString
-//    }
-
-
-
-    
-    // MARK: - Table view data source
-
-/*    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        // #warning Incomplete implementation, return the number of rows
-        return 20
+    private func getAttributedString(for text: String) -> NSAttributedString {
+        let attributedString = NSAttributedString(string: text, attributes: [
+            NSAttributedString.Key.foregroundColor: UIColor(named: "titleGrey")!
+            ])
+        return attributedString
     }
-
-
-    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "reuseIdentifier", for: indexPath)
-
-        // Configure the cell...
-
-        return cell
-    }*/
 }
