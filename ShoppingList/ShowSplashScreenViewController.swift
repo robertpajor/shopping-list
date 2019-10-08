@@ -20,7 +20,6 @@ class ShowSplashScreenViewController: UIViewController {
         }
     }
 
-
     /*
     // MARK: - Navigation
 

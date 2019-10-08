@@ -29,7 +29,7 @@ class ShoppingListUITests: XCTestCase {
     func testExample() {
         // Use recording to get started writing UI tests.
         // Use XCTAssert and related functions to verify your tests produce the correct results.
-        XCUIApplication().otherElements.containing(.staticText, identifier:"Make a List").element.tap()
+        XCUIApplication().otherElements.containing(.staticText, identifier: "Make a List").element.tap()
         XCTAssertTrue(true)
     }
 

@@ -14,7 +14,6 @@ class ShoppingListVC: UIViewController {
         super.viewDidLoad()
     }
 
-    
     @IBAction func clickAddButton(_ sender: Any) {
         showAddAlert()
     }
@@ -24,29 +23,44 @@ class ShoppingListVC: UIViewController {
         let placeholderText = "List name"
         let confirmButtonText = "OK"
         let cancelButtonText = "Cancel"
+        let titleColor = UIColor(named: "titleGrey")!
+        let buttonsColor = UIColor(named: "subtitleGrey")!
 
         let addAlert = UIAlertController(title: "", message: "", preferredStyle: .alert)
-        addAlert.setValue(getAttributedString(for: titleText), forKey: "attributedTitle")
-
-        addAlert.addTextField { (textField) in
-            textField.placeholder = placeholderText
-        }
-
-        addAlert.addAction(UIAlertAction(title: cancelButtonText, style: .cancel, handler: nil))
-        addAlert.addAction(UIAlertAction(title: confirmButtonText, style: .default, handler: { [weak addAlert] (_) in
-            let textField = addAlert?.textFields![0]
-            let textFieldText = textField!.text
-            print(textFieldText!)
-        }))
-        addAlert.view.tintColor = UIColor(named: "subtitleGrey")
-
+        setTitle(for: addAlert, withText: titleText, withColor: titleColor)
+        addField(to: addAlert, withPlaceholder: placeholderText)
+        addCancelButton(to: addAlert, withTitle: cancelButtonText)
+        addOkButton(to: addAlert, withTitle: confirmButtonText)
+        setButtons(color: buttonsColor, for: addAlert)
         self.present(addAlert, animated: true)
     }
 
-    private func getAttributedString(for text: String) -> NSAttributedString {
-        let attributedString = NSAttributedString(string: text, attributes: [
-            NSAttributedString.Key.foregroundColor: UIColor(named: "titleGrey")!
-            ])
-        return attributedString
+    private func setTitle(for alert: UIAlertController, withText title: String, withColor color: UIColor) {
+        let attributedString = NSAttributedString(string: title, attributes: [
+        NSAttributedString.Key.foregroundColor: color
+        ])
+        alert.setValue(attributedString, forKey: "attributedTitle")
+    }
+
+    private func addField(to alert: UIAlertController, withPlaceholder placeholder: String) {
+        alert.addTextField { textField in
+            textField.placeholder = placeholder
+        }
+    }
+
+    private func addCancelButton(to alert: UIAlertController, withTitle title: String) {
+        alert.addAction(UIAlertAction(title: title, style: .cancel, handler: nil))
+    }
+
+    private func addOkButton(to alert: UIAlertController, withTitle title: String) {
+        alert.addAction(UIAlertAction(title: title, style: .default, handler: { [weak alert] (_) in
+            let textField = alert?.textFields![0]
+            let textFieldText = textField!.text
+            print(textFieldText!)
+        }))
+    }
+
+    private func setButtons(color: UIColor, for alert: UIAlertController) {
+        alert.view.tintColor = color
     }
 }
