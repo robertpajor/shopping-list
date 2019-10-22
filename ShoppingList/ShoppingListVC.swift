@@ -19,48 +19,18 @@ class ShoppingListVC: UIViewController {
     }
 
     func showAddAlert() {
-        let titleText = "Add new list"
-        let placeholderText = "List name"
-        let confirmButtonText = "OK"
-        let cancelButtonText = "Cancel"
-        let titleColor = UIColor(named: "titleGrey")!
-        let buttonsColor = UIColor(named: "subtitleGrey")!
-
-        let addAlert = UIAlertController(title: "", message: "", preferredStyle: .alert)
-        setTitle(for: addAlert, withText: titleText, withColor: titleColor)
-        addField(to: addAlert, withPlaceholder: placeholderText)
-        addCancelButton(to: addAlert, withTitle: cancelButtonText)
-        addOkButton(to: addAlert, withTitle: confirmButtonText)
-        setButtons(color: buttonsColor, for: addAlert)
+        let addAlert = UIAlertController.make()
+        addAlert.setTitle(withText: "Add new list")
+        addAlert.addField(withPlaceholder: "List name")
+        addAlert.addCancelButton(withHandler: nil)
+        addAlert.addOkButton(withHandler: { [weak self] (text: String) -> Void in
+            self?.printText(text)
+            })
         self.present(addAlert, animated: true)
     }
 
-    private func setTitle(for alert: UIAlertController, withText title: String, withColor color: UIColor) {
-        let attributedString = NSAttributedString(string: title, attributes: [
-        NSAttributedString.Key.foregroundColor: color
-        ])
-        alert.setValue(attributedString, forKey: "attributedTitle")
-    }
-
-    private func addField(to alert: UIAlertController, withPlaceholder placeholder: String) {
-        alert.addTextField { textField in
-            textField.placeholder = placeholder
-        }
-    }
-
-    private func addCancelButton(to alert: UIAlertController, withTitle title: String) {
-        alert.addAction(UIAlertAction(title: title, style: .cancel, handler: nil))
-    }
-
-    private func addOkButton(to alert: UIAlertController, withTitle title: String) {
-        alert.addAction(UIAlertAction(title: title, style: .default, handler: { [weak alert] (_) in
-            let textField = alert?.textFields![0]
-            let textFieldText = textField!.text
-            print(textFieldText!)
-        }))
-    }
-
-    private func setButtons(color: UIColor, for alert: UIAlertController) {
-        alert.view.tintColor = color
+// It is temporary function
+    func printText(_ text: String) {
+        print(String(format: "Text from field: %@", text))
     }
 }
