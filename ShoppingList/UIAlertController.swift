@@ -31,18 +31,14 @@ extension UIAlertController {
 
     func addCancelButton(withHandler handler: Void?) {
         self.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: {(_) in
-            guard let handler = handler else {
-                return
-            }
+            guard let handler = handler else { return }
             handler
         }))
     }
 
     func addOkButton(withHandler handler: ((String) -> Void)? = nil) {
         self.addAction(UIAlertAction(title: "OK", style: .default, handler: { [weak self] (_) in
-            guard let handler = handler else {
-                return
-            }
+            guard let handler = handler else { return }
             let textField = self?.textFields![0]
             let textFieldText = textField!.text
             handler(textFieldText!)
