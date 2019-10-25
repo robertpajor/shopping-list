@@ -29,19 +29,16 @@ extension UIAlertController {
         }
     }
 
-    func addCancelButton(withHandler handler: Void?) {
-        self.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: {(_) in
-            guard let handler = handler else { return }
-            handler
-        }))
+    func addCancelButton(withHandler handler: (() -> Void)?) {
+        self.addAction(UIAlertAction(title: "Cancel", style: .cancel) { (_) in
+            handler?()
+        })
     }
 
-    func addOkButton(withHandler handler: ((String) -> Void)? = nil) {
-        self.addAction(UIAlertAction(title: "OK", style: .default, handler: { [weak self] (_) in
-            guard let handler = handler else { return }
-            let textField = self?.textFields![0]
-            let textFieldText = textField!.text
-            handler(textFieldText!)
-        }))
+    func addOkButton(withHandler handler: ((String) -> Void)?) {
+        self.addAction(UIAlertAction(title: "OK", style: .default) { [weak self] (_) in
+            let text = self?.textFields?[0].text ?? ""
+            handler?(text)
+        })
     }
 }

@@ -23,9 +23,9 @@ class ShoppingListVC: UIViewController {
         addAlert.setTitle(withText: "Add new list")
         addAlert.addField(withPlaceholder: "List name")
         addAlert.addCancelButton(withHandler: nil)
-        addAlert.addOkButton(withHandler: { [weak self] (text: String) -> Void in
+        addAlert.addOkButton { [weak self] text in
             self?.printText(text)
-            })
+        }
         self.present(addAlert, animated: true)
     }
 
