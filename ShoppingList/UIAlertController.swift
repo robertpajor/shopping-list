@@ -23,9 +23,15 @@ extension UIAlertController {
         self.setValue(attributedString, forKey: "attributedTitle")
     }
 
-    func addField(withPlaceholder placeholder: String) {
+    func addField(withPlaceholder placeholder: String? = nil, withPreviousText previousText: String? = nil) {
         self.addTextField { textField in
-            textField.placeholder = placeholder
+            if let previousText = previousText {
+                textField.text = previousText
+                return
+            }
+            if let placeholder = placeholder {
+                textField.placeholder = placeholder
+            }
         }
     }
 
