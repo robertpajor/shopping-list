@@ -8,10 +8,31 @@
 
 import UIKit
 
-class ShoppingListVC: UIViewController {
+class ShoppingListVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
+
+    var namesList: [String] = [] {
+        didSet {
+            mainListTableView.isHidden = namesList.isEmpty
+            mainListTableView.reloadData()
+        }
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        setupMainList()
+    }
+
+    @IBOutlet weak var mainListTableView: UITableView!
+
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return namesList.count
+    }
+
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "mainListCell", for: indexPath)
+        cell.textLabel?.text = "\(namesList[indexPath.row])"
+        cell.textLabel?.textColor = .primaryGrey
+        return cell
     }
 
     @IBAction func clickAddButton(_ sender: Any) {
@@ -24,13 +45,15 @@ class ShoppingListVC: UIViewController {
         addAlert.addField(withPlaceholder: "List name")
         addAlert.addCancelButton(withHandler: nil)
         addAlert.addOkButton { [weak self] text in
-            self?.printText(text)
+            self?.namesList.append(text)
         }
         self.present(addAlert, animated: true)
     }
 
-// It is temporary function
-    func printText(_ text: String) {
-        print(String(format: "Text from field: %@", text))
+    private func setupMainList() {
+        mainListTableView.isHidden = true
+        mainListTableView.tableFooterView = UIView()
+        mainListTableView.allowsSelection = false
+        mainListTableView.rowHeight = 45
     }
 }
