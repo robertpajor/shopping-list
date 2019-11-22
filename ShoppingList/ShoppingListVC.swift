@@ -42,7 +42,7 @@ class ShoppingListVC: UIViewController, UITableViewDelegate, UITableViewDataSour
         }
 
         let edit = UITableViewRowAction(style: .default, title: "Edit") { (_, indexPath) in
-            self.showEditAlert(forListWithIndex: indexPath.row)
+            self.showEditAlert(forItemAt: indexPath.row)
         }
 
         edit.backgroundColor = .secondaryGrey
@@ -66,10 +66,10 @@ class ShoppingListVC: UIViewController, UITableViewDelegate, UITableViewDataSour
         self.present(addAlert, animated: true)
     }
 
-    func showEditAlert(forListWithIndex index: Int) {
+    func showEditAlert(forItemAt index: Int) {
         let editAlert = UIAlertController.make()
         editAlert.setTitle(withText: "Edit list name")
-        editAlert.addField(withPreviousText: self.namesList[index])
+        editAlert.addField(withText: self.namesList[index], withPlaceholder: "List name")
         editAlert.addCancelButton(withHandler: nil)
         editAlert.addOkButton { [weak self] text in
             self?.namesList[index] = text
