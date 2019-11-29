@@ -51,12 +51,34 @@
                                 <color key="textColor" name="secondaryGrey"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="Zkd-sM-UoH">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="623"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                <prototypes>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="15" reuseIdentifier="mainListCell" id="RSX-A7-mfT">
+                                        <rect key="frame" x="0.0" y="28" width="375" height="43.5"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="RSX-A7-mfT" id="4XO-DA-iES">
+                                            <rect key="frame" x="0.0" y="0.0" width="348.5" height="43.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                </prototypes>
+                                <connections>
+                                    <outlet property="dataSource" destination="xDe-nu-MGY" id="oLj-9i-bcC"/>
+                                    <outlet property="delegate" destination="xDe-nu-MGY" id="MOV-7m-v3J"/>
+                                </connections>
+                            </tableView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="axG-GQ-BAa" firstAttribute="trailing" secondItem="xFU-Fh-5Ap" secondAttribute="trailing" constant="47" id="BMT-VF-0Zu"/>
                             <constraint firstItem="xFU-Fh-5Ap" firstAttribute="leading" secondItem="axG-GQ-BAa" secondAttribute="leading" constant="47" id="IIl-dd-bQB"/>
                             <constraint firstItem="xFU-Fh-5Ap" firstAttribute="centerY" secondItem="PQK-gP-OHK" secondAttribute="centerY" id="VMY-k6-pF1"/>
+                            <constraint firstItem="Zkd-sM-UoH" firstAttribute="leading" secondItem="axG-GQ-BAa" secondAttribute="leading" id="XeH-Nq-aTL"/>
+                            <constraint firstItem="axG-GQ-BAa" firstAttribute="trailing" secondItem="Zkd-sM-UoH" secondAttribute="trailing" id="pYU-pG-O0h"/>
+                            <constraint firstItem="Zkd-sM-UoH" firstAttribute="top" secondItem="axG-GQ-BAa" secondAttribute="top" id="uvN-ct-dtu"/>
+                            <constraint firstItem="axG-GQ-BAa" firstAttribute="bottom" secondItem="Zkd-sM-UoH" secondAttribute="bottom" id="uzt-gQ-uLN"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="axG-GQ-BAa"/>
                     </view>
@@ -69,10 +91,13 @@
                         </barButtonItem>
                     </navigationItem>
                     <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" translucent="NO" prompted="NO"/>
+                    <connections>
+                        <outlet property="mainListTableView" destination="Zkd-sM-UoH" id="nKq-kd-QZK"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Nqx-Dd-TmS" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1199" y="27"/>
+            <point key="canvasLocation" x="1197.5999999999999" y="26.53673163418291"/>
         </scene>
     </scenes>
     <resources>
