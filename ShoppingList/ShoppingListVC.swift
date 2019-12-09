@@ -11,13 +11,7 @@ import UIKit
 class ShoppingListVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
 
     @IBOutlet weak var mainListTableView: UITableView!
-
-    var namesList: [String] = [] {
-        didSet {
-            mainListTableView.isHidden = namesList.isEmpty
-            mainListTableView.reloadData()
-        }
-    }
+    var database = Database()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -25,12 +19,13 @@ class ShoppingListVC: UIViewController, UITableViewDelegate, UITableViewDataSour
     }
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return namesList.count
+        return database.shoppingListAray.count
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "mainListCell", for: indexPath)
-        cell.textLabel?.text = "\(namesList[indexPath.row])"
+        let listName = getListName(withIndex: indexPath.row)
+        cell.textLabel?.text = "\(listName)"
         cell.textLabel?.textColor = .primaryGrey
         return cell
     }
@@ -38,7 +33,7 @@ class ShoppingListVC: UIViewController, UITableViewDelegate, UITableViewDataSour
     func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
 
         let delete = UITableViewRowAction(style: .destructive, title: "Delete") { (_, indexPath) in
-            self.namesList.remove(at: indexPath.row)
+            self.removeList(withIndex: indexPath.row)
         }
 
         let edit = UITableViewRowAction(style: .default, title: "Edit") { (_, indexPath) in
@@ -48,7 +43,12 @@ class ShoppingListVC: UIViewController, UITableViewDelegate, UITableViewDataSour
         edit.backgroundColor = .secondaryGrey
 
         return [delete, edit]
+    }
 
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
+        let productForm = ProductFormVC()
+        navigationController?.pushViewController(productForm, animated: true)
     }
 
     @IBAction func clickAddButton(_ sender: Any) {
@@ -61,7 +61,7 @@ class ShoppingListVC: UIViewController, UITableViewDelegate, UITableViewDataSour
         addAlert.addField(withPlaceholder: "List name")
         addAlert.addCancelButton(withHandler: nil)
         addAlert.addOkButton { [weak self] text in
-            self?.namesList.append(text)
+            self?.addList(withName: text)
         }
         self.present(addAlert, animated: true)
     }
@@ -69,18 +69,40 @@ class ShoppingListVC: UIViewController, UITableViewDelegate, UITableViewDataSour
     func showEditAlert(forItemAt index: Int) {
         let editAlert = UIAlertController.make()
         editAlert.setTitle(withText: "Edit list name")
-        editAlert.addField(withText: self.namesList[index], withPlaceholder: "List name")
+        editAlert.addField(withText: self.getListName(withIndex: index), withPlaceholder: "List name")
         editAlert.addCancelButton(withHandler: nil)
         editAlert.addOkButton { [weak self] text in
-            self?.namesList[index] = text
+            self?.editList(withIndex: index, newName: text)
         }
         self.present(editAlert, animated: true)
     }
 
+    private func addList(withName name: String) {
+        database.shoppingListAray.append(SchoppingList(withName: name))
+        updateContent()
+    }
+
+    private func editList(withIndex index: Int, newName name: String) {
+        database.shoppingListAray[index].name = name
+        updateContent()
+    }
+
+    private func removeList(withIndex index: Int) {
+        database.shoppingListAray.remove(at: index)
+        updateContent()
+    }
+
+    private func getListName(withIndex index: Int) -> String {
+        return database.shoppingListAray[index].name
+    }
+
     private func setupMainList() {
-        mainListTableView.isHidden = namesList.isEmpty
+        mainListTableView.isHidden = database.shoppingListAray.isEmpty
         mainListTableView.tableFooterView = UIView()
-        mainListTableView.allowsSelection = false
         mainListTableView.rowHeight = 45
+    }
+    private func updateContent() {
+        mainListTableView.isHidden = database.shoppingListAray.isEmpty
+        mainListTableView.reloadData()
     }
 }

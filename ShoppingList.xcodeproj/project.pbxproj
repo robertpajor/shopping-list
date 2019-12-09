@@ -9,6 +9,9 @@
 /* Begin PBXBuildFile section */
 		0E22064523546D7700289280 /* UIAlertController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E22064423546D7700289280 /* UIAlertController.swift */; };
 		0E2206472356072600289280 /* UIColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E2206462356072600289280 /* UIColor.swift */; };
+		0EB51F4B23994F46006A161D /* ProductFormVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EB51F4A23994F46006A161D /* ProductFormVC.swift */; };
+		0EB51F4D239A5D2B006A161D /* Database.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EB51F4C239A5D2B006A161D /* Database.swift */; };
+		0EB51F4F239A5DF5006A161D /* ShoppingList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EB51F4E239A5DF5006A161D /* ShoppingList.swift */; };
 		E147CAC322D4E23300D37B25 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E147CAC222D4E23300D37B25 /* AppDelegate.swift */; };
 		E147CAC822D4E23300D37B25 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E147CAC622D4E23300D37B25 /* Main.storyboard */; };
 		E147CACD22D4E23500D37B25 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E147CACC22D4E23500D37B25 /* Assets.xcassets */; };
@@ -38,6 +41,9 @@
 /* Begin PBXFileReference section */
 		0E22064423546D7700289280 /* UIAlertController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIAlertController.swift; sourceTree = "<group>"; };
 		0E2206462356072600289280 /* UIColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIColor.swift; sourceTree = "<group>"; };
+		0EB51F4A23994F46006A161D /* ProductFormVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductFormVC.swift; sourceTree = "<group>"; };
+		0EB51F4C239A5D2B006A161D /* Database.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Database.swift; sourceTree = "<group>"; };
+		0EB51F4E239A5DF5006A161D /* ShoppingList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShoppingList.swift; sourceTree = "<group>"; };
 		E147CABF22D4E23300D37B25 /* ShoppingList.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ShoppingList.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E147CAC222D4E23300D37B25 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		E147CAC722D4E23300D37B25 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -107,8 +113,11 @@
 				E147CACE22D4E23500D37B25 /* LaunchScreen.storyboard */,
 				E147CAD122D4E23500D37B25 /* Info.plist */,
 				E1A59CBE22E83BE000D83A0C /* ShoppingListVC.swift */,
+				0EB51F4A23994F46006A161D /* ProductFormVC.swift */,
 				0E22064423546D7700289280 /* UIAlertController.swift */,
 				0E2206462356072600289280 /* UIColor.swift */,
+				0EB51F4C239A5D2B006A161D /* Database.swift */,
+				0EB51F4E239A5DF5006A161D /* ShoppingList.swift */,
 			);
 			path = ShoppingList;
 			sourceTree = "<group>";
@@ -284,6 +293,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				E1A59CBF22E83BE000D83A0C /* ShoppingListVC.swift in Sources */,
+				0EB51F4B23994F46006A161D /* ProductFormVC.swift in Sources */,
+				0EB51F4F239A5DF5006A161D /* ShoppingList.swift in Sources */,
+				0EB51F4D239A5D2B006A161D /* Database.swift in Sources */,
 				0E2206472356072600289280 /* UIColor.swift in Sources */,
 				E147CAC322D4E23300D37B25 /* AppDelegate.swift in Sources */,
 				0E22064523546D7700289280 /* UIAlertController.swift in Sources */,
