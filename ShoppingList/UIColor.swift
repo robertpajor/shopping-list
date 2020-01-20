@@ -9,6 +9,7 @@
 import UIKit
 
 extension UIColor {
-    static var primaryGrey: UIColor? { return UIColor(named: "primaryGrey")}
-    static var secondaryGrey: UIColor? { return UIColor(named: "secondaryGrey")}
+    static var primaryGrey: UIColor? { return UIColor(named: "primaryGrey") }
+    static var secondaryGrey: UIColor? { return UIColor(named: "secondaryGrey") }
+    static var separatorGrey: UIColor? { return UIColor(named: "separatorGrey") }
 }

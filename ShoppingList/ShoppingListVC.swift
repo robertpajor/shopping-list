@@ -15,7 +15,7 @@ class ShoppingListVC: UIViewController, UITableViewDelegate, UITableViewDataSour
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        setupMainList()
+        initMainList()
     }
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -47,7 +47,7 @@ class ShoppingListVC: UIViewController, UITableViewDelegate, UITableViewDataSour
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
-        let productForm = ProductFormVC()
+        let productForm = ProductFormVC(for: database.shoppingListAray[indexPath.row])
         navigationController?.pushViewController(productForm, animated: true)
     }
 
@@ -96,7 +96,7 @@ class ShoppingListVC: UIViewController, UITableViewDelegate, UITableViewDataSour
         return database.shoppingListAray[index].name
     }
 
-    private func setupMainList() {
+    private func initMainList() {
         mainListTableView.isHidden = database.shoppingListAray.isEmpty
         mainListTableView.tableFooterView = UIView()
         mainListTableView.rowHeight = 45
