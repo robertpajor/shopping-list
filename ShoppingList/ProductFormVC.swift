@@ -8,11 +8,14 @@
 
 import UIKit
 
-class ProductFormVC: UIViewController {
+class ProductFormVC: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource {
+    let categories: [String] = ["Fruits", "Vegetables", "Dairy", "Bread", "Drinks", "Accessories"]
+
     var shoppingList: SchoppingList
     lazy var nameField: UITextField = UITextField()
     lazy var nameSeparator: UIView = UIView()
     lazy var categoryField: UITextField = UITextField()
+    lazy var categoryPicker: UIPickerView = UIPickerView()
     lazy var categorySeparator: UIView = UIView()
     lazy var quantityField: UITextField = UITextField()
     lazy var quantitySeparator: UIView = UIView()
@@ -26,6 +29,7 @@ class ProductFormVC: UIViewController {
         initNameField()
         initNameSeparator()
         initCategoryField()
+        initCategoryPicker()
         initCategorySeparator()
         initQuantityField()
         initQuantitySeparate()
@@ -57,8 +61,16 @@ class ProductFormVC: UIViewController {
 
     func initCategoryField() {
         categoryField.placeholder = "Category"
+        categoryField.inputView = categoryPicker
+        categoryField.doneAccessory = true
         categoryField.translatesAutoresizingMaskIntoConstraints = false
         self.view.addSubview(categoryField )
+    }
+
+    func initCategoryPicker() {
+        categoryPicker.delegate = self
+        categoryPicker.dataSource = self
+        categoryPicker.backgroundColor = .white
     }
 
     func initCategorySeparator() {
@@ -70,6 +82,7 @@ class ProductFormVC: UIViewController {
     func initQuantityField() {
         quantityField.placeholder = "Quantity"
         quantityField.translatesAutoresizingMaskIntoConstraints = false
+        quantityField.keyboardType = .numberPad
         self.view.addSubview(quantityField)
     }
 
@@ -122,5 +135,21 @@ class ProductFormVC: UIViewController {
         ]
 
         NSLayoutConstraint.activate(constraints)
+    }
+
+    func numberOfComponents(in pickerView: UIPickerView) -> Int {
+        return 1
+    }
+
+    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
+        return categories.count
+    }
+
+    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
+        return categories[row]
+    }
+
+    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
+        self.categoryField.text = self.categories[row]
     }
 }
