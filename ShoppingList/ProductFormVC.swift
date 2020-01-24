@@ -8,8 +8,9 @@
 
 import UIKit
 
-class ProductFormVC: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource {
+class ProductFormVC: UIViewController {
     let categories: [String] = ["Fruits", "Vegetables", "Dairy", "Bread", "Drinks", "Accessories"]
+    let units: [String] = ["liter", "piece", "kilograms"]
 
     var shoppingList: SchoppingList
     lazy var nameField: UITextField = UITextField()
@@ -20,7 +21,10 @@ class ProductFormVC: UIViewController, UIPickerViewDelegate, UIPickerViewDataSou
     lazy var quantityField: UITextField = UITextField()
     lazy var quantitySeparator: UIView = UIView()
     lazy var unitField: UITextField = UITextField()
+    lazy var unitPicker: UIPickerView = UIPickerView()
     lazy var unitSeparator: UIView = UIView()
+    lazy var categoryPickerData = PickerData(inputData: categories, outputTextField: categoryField)
+    lazy var unitPickerData = PickerData(inputData: units, outputTextField: unitField)
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -34,6 +38,7 @@ class ProductFormVC: UIViewController, UIPickerViewDelegate, UIPickerViewDataSou
         initQuantityField()
         initQuantitySeparate()
         initUnitField()
+        initUnitPicker()
         initUnitSeparate()
         addConstraints()
     }
@@ -68,8 +73,8 @@ class ProductFormVC: UIViewController, UIPickerViewDelegate, UIPickerViewDataSou
     }
 
     func initCategoryPicker() {
-        categoryPicker.delegate = self
-        categoryPicker.dataSource = self
+        categoryPicker.delegate = categoryPickerData
+        categoryPicker.dataSource = categoryPickerData
         categoryPicker.backgroundColor = .white
     }
 
@@ -94,8 +99,16 @@ class ProductFormVC: UIViewController, UIPickerViewDelegate, UIPickerViewDataSou
 
     func initUnitField() {
         unitField.placeholder = "Unit"
+        unitField.inputView = unitPicker
+        unitField.doneAccessory = true
         unitField.translatesAutoresizingMaskIntoConstraints = false
         self.view.addSubview(unitField)
+    }
+
+     func initUnitPicker() {
+        unitPicker.delegate = unitPickerData
+        unitPicker.dataSource = unitPickerData
+        unitPicker.backgroundColor = .white
     }
 
     func initUnitSeparate() {
@@ -136,20 +149,35 @@ class ProductFormVC: UIViewController, UIPickerViewDelegate, UIPickerViewDataSou
 
         NSLayoutConstraint.activate(constraints)
     }
+}
+
+class PickerData: NSObject, UIPickerViewDelegate, UIPickerViewDataSource {
+
+    var inputData: [String]
+    var textField: UITextField
+
+    init(inputData: [String], outputTextField: UITextField) {
+        self.inputData = inputData
+        self.textField = outputTextField
+    }
+
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
 
     func numberOfComponents(in pickerView: UIPickerView) -> Int {
         return 1
     }
 
     func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
-        return categories.count
+        return inputData.count
     }
 
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
-        return categories[row]
+        return inputData[row]
     }
 
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-        self.categoryField.text = self.categories[row]
+        self.textField.text = self.inputData[row]
     }
 }
