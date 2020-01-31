@@ -10,7 +10,7 @@ import UIKit
 
 class ProductFormVC: UIViewController {
     let categories: [String] = ["Fruits", "Vegetables", "Dairy", "Bread", "Drinks", "Accessories"]
-    let units: [String] = ["liter", "piece", "kilograms"]
+    let units: [String] = ["piece", "liter", "kilograms"]
 
     var shoppingList: SchoppingList
     lazy var nameField: UITextField = UITextField()
@@ -23,6 +23,7 @@ class ProductFormVC: UIViewController {
     lazy var unitField: UITextField = UITextField()
     lazy var unitPicker: UIPickerView = UIPickerView()
     lazy var unitSeparator: UIView = UIView()
+    lazy var addButton: UIButton = UIButton()
     lazy var categoryPickerData = PickerData(inputData: categories, outputTextField: categoryField)
     lazy var unitPickerData = PickerData(inputData: units, outputTextField: unitField)
 
@@ -40,6 +41,7 @@ class ProductFormVC: UIViewController {
         initUnitField()
         initUnitPicker()
         initUnitSeparate()
+        initAddButton()
         addConstraints()
     }
 
@@ -117,6 +119,14 @@ class ProductFormVC: UIViewController {
         self.view.addSubview(unitSeparator)
     }
 
+    func initAddButton() {
+        addButton.setTitle("Add", for: .normal)
+        addButton.backgroundColor = .primaryGrey
+        addButton.layer.cornerRadius = 10
+        addButton.translatesAutoresizingMaskIntoConstraints = false
+        self.view.addSubview(addButton)
+    }
+
     func addConstraints() {
         var constraints: [NSLayoutConstraint] = []
         let textFields = [nameField, categoryField, quantityField, unitField]
@@ -144,7 +154,11 @@ class ProductFormVC: UIViewController {
             quantityField.topAnchor.constraint(equalTo: categorySeparator.bottomAnchor, constant: 10),
             quantitySeparator.topAnchor.constraint(equalTo: quantityField.bottomAnchor, constant: 10),
             unitField.topAnchor.constraint(equalTo: quantitySeparator.bottomAnchor, constant: 10),
-            unitSeparator.topAnchor.constraint(equalTo: unitField.bottomAnchor, constant: 10)
+            unitSeparator.topAnchor.constraint(equalTo: unitField.bottomAnchor, constant: 10),
+            addButton.topAnchor.constraint(equalTo: unitSeparator.bottomAnchor, constant: 80),
+            addButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 40),
+            addButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -40),
+            addButton.heightAnchor.constraint(equalToConstant: 50)
         ]
 
         NSLayoutConstraint.activate(constraints)
