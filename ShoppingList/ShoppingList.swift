@@ -21,10 +21,10 @@ class SchoppingList {
 class Product {
     var name: String
     var category: String
-    var quantity: Int
-    var unit: String
+    var quantity: Float
+    var unit: String?
 
-    init(name: String, category: String, quantity: Int = 1, unit: String) {
+    init(name: String, category: String, quantity: Float = 1.0, unit: String?) {
         self.name = name
         self.category = category
         self.quantity = quantity

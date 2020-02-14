@@ -9,10 +9,14 @@
 import UIKit
 
 class ProductFormVC: UIViewController {
-    let categories: [String] = ["Fruits", "Vegetables", "Dairy", "Bread", "Drinks", "Accessories"]
-    let units: [String] = ["piece", "liter", "kilograms"]
-
+    var database = Database()
     var shoppingList: SchoppingList
+    var textFields: [UITextField] {
+        return [nameField, categoryField, quantityField, unitField]
+        }
+    var separators: [UIView] {
+        return [nameSeparator, categorySeparator, quantitySeparator, unitSeparator]
+    }
     lazy var nameField: UITextField = UITextField()
     lazy var nameSeparator: UIView = UIView()
     lazy var categoryField: UITextField = UITextField()
@@ -24,8 +28,8 @@ class ProductFormVC: UIViewController {
     lazy var unitPicker: UIPickerView = UIPickerView()
     lazy var unitSeparator: UIView = UIView()
     lazy var addButton: UIButton = UIButton()
-    lazy var categoryPickerData = PickerData(inputData: categories, outputTextField: categoryField)
-    lazy var unitPickerData = PickerData(inputData: units, outputTextField: unitField)
+    lazy var categoryPickerData = PickerData(inputData: database.categories, outputTextField: categoryField)
+    lazy var unitPickerData = PickerData(inputData: database.units, outputTextField: unitField)
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -56,7 +60,9 @@ class ProductFormVC: UIViewController {
 
     func initNameField() {
         nameField.placeholder = "Name"
+        nameField.doneAccessory = true
         nameField.translatesAutoresizingMaskIntoConstraints = false
+        nameField.addTarget(self, action: #selector(updateAddButton), for: .editingChanged)
         self.view.addSubview(nameField)
     }
 
@@ -71,7 +77,8 @@ class ProductFormVC: UIViewController {
         categoryField.inputView = categoryPicker
         categoryField.doneAccessory = true
         categoryField.translatesAutoresizingMaskIntoConstraints = false
-        self.view.addSubview(categoryField )
+        categoryField.addTarget(self, action: #selector(updateAddButton), for: .editingChanged)
+        self.view.addSubview(categoryField)
     }
 
     func initCategoryPicker() {
@@ -88,6 +95,7 @@ class ProductFormVC: UIViewController {
 
     func initQuantityField() {
         quantityField.placeholder = "Quantity"
+        quantityField.doneAccessory = true
         quantityField.translatesAutoresizingMaskIntoConstraints = false
         quantityField.keyboardType = .numberPad
         self.view.addSubview(quantityField)
@@ -121,17 +129,15 @@ class ProductFormVC: UIViewController {
 
     func initAddButton() {
         addButton.setTitle("Add", for: .normal)
-        addButton.backgroundColor = .primaryGrey
         addButton.layer.cornerRadius = 10
         addButton.translatesAutoresizingMaskIntoConstraints = false
+        addButton.addTarget(self, action: #selector(addButtonAction), for: .touchUpInside)
+        setAddButton(enabled: false)
         self.view.addSubview(addButton)
     }
 
     func addConstraints() {
         var constraints: [NSLayoutConstraint] = []
-        let textFields = [nameField, categoryField, quantityField, unitField]
-        let separators = [nameSeparator, categorySeparator, quantitySeparator, unitSeparator]
-
         textFields.forEach { (textField) in
             constraints += [
                 textField.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
@@ -162,6 +168,42 @@ class ProductFormVC: UIViewController {
         ]
 
         NSLayoutConstraint.activate(constraints)
+    }
+
+    @objc func updateAddButton() {
+        setAddButton(enabled: shouldAddButtonEnable())
+    }
+
+    @objc func addButtonAction(sender: UIButton) {
+        guard let product = getProduct() else { return }
+
+        shoppingList.products.append(product)
+        clearForm()
+    }
+
+    private func getProduct() -> Product? {
+        guard let productName = nameField.text,
+            let category = categoryField.text,
+            let textQuantity = quantityField.text,
+            let numberQuantity = Float(textQuantity) else { return nil }
+        return Product(name: productName, category: category, quantity: numberQuantity, unit: unitField.text)
+    }
+
+    private func shouldAddButtonEnable() -> Bool {
+        return !(nameField.text?.isEmpty ?? true || categoryField.text?.isEmpty ?? true)
+    }
+
+    private func setAddButton(enabled: Bool) {
+        addButton.backgroundColor = enabled ? .primaryGrey : .secondaryGrey
+        addButton.isEnabled = enabled
+    }
+
+    private func clearForm() {
+        textFields.forEach { (textField) in
+            textField.text = ""
+        }
+        updateAddButton()
+        self.view.endEditing(true)
     }
 }
 
