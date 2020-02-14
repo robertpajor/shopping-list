@@ -24,7 +24,7 @@ class Product {
     var quantity: Float
     var unit: String?
 
-    init(name: String, category: String, quantity: Float = 1.0, unit: String?) {
+    init(name: String, category: String, quantity: Float, unit: String?) {
         self.name = name
         self.category = category
         self.quantity = quantity

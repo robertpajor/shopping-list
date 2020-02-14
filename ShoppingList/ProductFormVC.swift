@@ -9,7 +9,8 @@
 import UIKit
 
 class ProductFormVC: UIViewController {
-    var database = Database()
+    let categories: [String] = ["Fruits", "Vegetables", "Dairy", "Bread", "Drinks", "Accessories"]
+    let units: [String] = ["pieces", "liters", "kilograms", "decagrams", "grams"]
     var shoppingList: SchoppingList
     var textFields: [UITextField] {
         return [nameField, categoryField, quantityField, unitField]
@@ -28,8 +29,8 @@ class ProductFormVC: UIViewController {
     lazy var unitPicker: UIPickerView = UIPickerView()
     lazy var unitSeparator: UIView = UIView()
     lazy var addButton: UIButton = UIButton()
-    lazy var categoryPickerData = PickerData(inputData: database.categories, outputTextField: categoryField)
-    lazy var unitPickerData = PickerData(inputData: database.units, outputTextField: unitField)
+    lazy var categoryPickerData = PickerData(inputData: categories, outputTextField: categoryField)
+    lazy var unitPickerData = PickerData(inputData: units, outputTextField: unitField)
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -82,6 +83,9 @@ class ProductFormVC: UIViewController {
     }
 
     func initCategoryPicker() {
+        categoryPickerData.onChanged = { [weak self] in
+            self?.updateAddButton()
+        }
         categoryPicker.delegate = categoryPickerData
         categoryPicker.dataSource = categoryPickerData
         categoryPicker.backgroundColor = .white
@@ -97,7 +101,8 @@ class ProductFormVC: UIViewController {
         quantityField.placeholder = "Quantity"
         quantityField.doneAccessory = true
         quantityField.translatesAutoresizingMaskIntoConstraints = false
-        quantityField.keyboardType = .numberPad
+        quantityField.keyboardType = .decimalPad
+        quantityField.addTarget(self, action: #selector(updateAddButton), for: .editingChanged)
         self.view.addSubview(quantityField)
     }
 
@@ -190,7 +195,8 @@ class ProductFormVC: UIViewController {
     }
 
     private func shouldAddButtonEnable() -> Bool {
-        return !(nameField.text?.isEmpty ?? true || categoryField.text?.isEmpty ?? true)
+        return !(nameField.text?.isEmpty ?? true || categoryField.text?.isEmpty ?? true ||
+            quantityField.text?.isEmpty ?? true)
     }
 
     private func setAddButton(enabled: Bool) {
@@ -211,6 +217,7 @@ class PickerData: NSObject, UIPickerViewDelegate, UIPickerViewDataSource {
 
     var inputData: [String]
     var textField: UITextField
+    var onChanged: (() -> Void)?
 
     init(inputData: [String], outputTextField: UITextField) {
         self.inputData = inputData
@@ -234,6 +241,7 @@ class PickerData: NSObject, UIPickerViewDelegate, UIPickerViewDataSource {
     }
 
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-        self.textField.text = self.inputData[row]
+        textField.text = inputData[row]
+        onChanged?()
     }
 }

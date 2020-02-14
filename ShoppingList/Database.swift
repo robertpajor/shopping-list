@@ -10,6 +10,4 @@ import Foundation
 
 class Database {
     var shoppingListAray: [SchoppingList] = [SchoppingList(withName: "List 1")]
-    let categories: [String] = ["Fruits", "Vegetables", "Dairy", "Bread", "Drinks", "Accessories"]
-    let units: [String] = ["pieces", "liters", "kilograms", "decagrams", "grams"]
 }
