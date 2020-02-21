@@ -21,16 +21,14 @@ class ProductFormVC: UIViewController {
     lazy var nameField: UITextField = UITextField()
     lazy var nameSeparator: UIView = UIView()
     lazy var categoryField: UITextField = UITextField()
-    lazy var categoryPicker: UIPickerView = UIPickerView()
     lazy var categorySeparator: UIView = UIView()
     lazy var quantityField: UITextField = UITextField()
     lazy var quantitySeparator: UIView = UIView()
     lazy var unitField: UITextField = UITextField()
-    lazy var unitPicker: UIPickerView = UIPickerView()
     lazy var unitSeparator: UIView = UIView()
     lazy var addButton: UIButton = UIButton()
-    lazy var categoryPickerData = PickerData(inputData: categories, outputTextField: categoryField)
-    lazy var unitPickerData = PickerData(inputData: units, outputTextField: unitField)
+    lazy var categoryTextFieldPickerHandler = TextFieldPickerHandler(inputData: categories, textField: categoryField)
+    lazy var unitTextFieldPickerHandler = TextFieldPickerHandler(inputData: units, textField: unitField)
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -39,12 +37,10 @@ class ProductFormVC: UIViewController {
         initNameField()
         initNameSeparator()
         initCategoryField()
-        initCategoryPicker()
         initCategorySeparator()
         initQuantityField()
         initQuantitySeparate()
         initUnitField()
-        initUnitPicker()
         initUnitSeparate()
         initAddButton()
         addConstraints()
@@ -74,21 +70,15 @@ class ProductFormVC: UIViewController {
     }
 
     func initCategoryField() {
+        categoryTextFieldPickerHandler.onChanged = { [weak self] in
+            self?.updateAddButton()
+        }
         categoryField.placeholder = "Category"
-        categoryField.inputView = categoryPicker
+        categoryField.inputView = categoryTextFieldPickerHandler.picker
         categoryField.doneAccessory = true
         categoryField.translatesAutoresizingMaskIntoConstraints = false
         categoryField.addTarget(self, action: #selector(updateAddButton), for: .editingChanged)
         view.addSubview(categoryField)
-    }
-
-    func initCategoryPicker() {
-        categoryPickerData.onChanged = { [weak self] in
-            self?.updateAddButton()
-        }
-        categoryPicker.delegate = categoryPickerData
-        categoryPicker.dataSource = categoryPickerData
-        categoryPicker.backgroundColor = .white
     }
 
     func initCategorySeparator() {
@@ -113,17 +103,14 @@ class ProductFormVC: UIViewController {
     }
 
     func initUnitField() {
+        unitTextFieldPickerHandler.onChanged = { [weak self] in
+            self?.updateAddButton()
+        }
         unitField.placeholder = "Unit"
-        unitField.inputView = unitPicker
+        unitField.inputView = unitTextFieldPickerHandler.picker
         unitField.doneAccessory = true
         unitField.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(unitField)
-    }
-
-     func initUnitPicker() {
-        unitPicker.delegate = unitPickerData
-        unitPicker.dataSource = unitPickerData
-        unitPicker.backgroundColor = .white
     }
 
     func initUnitSeparate() {
@@ -206,19 +193,29 @@ class ProductFormVC: UIViewController {
     }
 }
 
-class PickerData: NSObject, UIPickerViewDelegate, UIPickerViewDataSource {
+class TextFieldPickerHandler: NSObject, UIPickerViewDelegate, UIPickerViewDataSource {
 
+    let picker: UIPickerView = UIPickerView()
     var inputData: [String]
     var textField: UITextField
     var onChanged: (() -> Void)?
 
-    init(inputData: [String], outputTextField: UITextField) {
+    init(inputData: [String], textField: UITextField) {
         self.inputData = inputData
-        self.textField = outputTextField
+        self.textField = textField
+        super.init()
+        initPicker()
     }
 
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+
+    func initPicker() {
+        picker.delegate = self
+        picker.dataSource = self
+        picker.backgroundColor = .white
+        textField.inputView = picker
     }
 
     func numberOfComponents(in pickerView: UIPickerView) -> Int {
