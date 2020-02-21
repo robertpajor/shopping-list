@@ -137,7 +137,7 @@ class ProductFormVC: UIViewController {
         addButton.layer.cornerRadius = 10
         addButton.translatesAutoresizingMaskIntoConstraints = false
         addButton.addTarget(self, action: #selector(addButtonAction), for: .touchUpInside)
-        setAddButton(enabled: false)
+        updateAddButton()
         view.addSubview(addButton)
     }
 
@@ -176,7 +176,9 @@ class ProductFormVC: UIViewController {
     }
 
     @objc func updateAddButton() {
-        setAddButton(enabled: shouldAddButtonEnable())
+        let shouldEnabled = getProduct() != nil
+        addButton.backgroundColor = shouldEnabled ? .primaryGrey : .secondaryGrey
+        addButton.isEnabled = shouldEnabled
     }
 
     @objc func addButtonAction(sender: UIButton) {
@@ -193,15 +195,6 @@ class ProductFormVC: UIViewController {
             let numberQuantity = Float(textQuantity) else { return nil }
 
         return Product(name: productName, category: category, quantity: numberQuantity, unit: unitField.text)
-    }
-
-    private func shouldAddButtonEnable() -> Bool {
-        return getProduct() != nil
-    }
-
-    private func setAddButton(enabled: Bool) {
-        addButton.backgroundColor = enabled ? .primaryGrey : .secondaryGrey
-        addButton.isEnabled = enabled
     }
 
     private func clearForm() {
