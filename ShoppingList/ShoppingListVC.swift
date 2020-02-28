@@ -47,7 +47,7 @@ class ShoppingListVC: UIViewController, UITableViewDelegate, UITableViewDataSour
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
-        let productForm = ProductFormVC(for: database.shoppingListAray[indexPath.row])
+        let productForm = ProductFormVC(forShoppingListIndex: indexPath.row, in: database)
         navigationController?.pushViewController(productForm, animated: true)
     }
 
@@ -78,7 +78,7 @@ class ShoppingListVC: UIViewController, UITableViewDelegate, UITableViewDataSour
     }
 
     private func addList(withName name: String) {
-        database.shoppingListAray.append(SchoppingList(withName: name))
+        database.shoppingListAray.append(ShoppingList(name: name))
         updateContent()
     }
 

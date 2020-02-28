@@ -9,5 +9,5 @@
 import Foundation
 
 class Database {
-    var shoppingListAray: [SchoppingList] = [SchoppingList(withName: "List 1")]
+    var shoppingListAray: [ShoppingList] = [ShoppingList(name: "List 1")]
 }
