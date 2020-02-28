@@ -173,7 +173,7 @@ class ProductFormVC: UIViewController {
     @objc func addButtonAction(sender: UIButton) {
         guard let product = getProduct() else { return }
 
-        addToDatabase(product: product)
+        database.add(product: product, toShoppingListAtIndex: shoppingListIndex)
         clearForm()
     }
 
@@ -184,12 +184,6 @@ class ProductFormVC: UIViewController {
             let numberQuantity = Float(textQuantity) else { return nil }
 
         return Product(name: productName, category: category, quantity: numberQuantity, unit: unitField.text)
-    }
-
-    private func addToDatabase(product: Product) {
-        var shoppingList = database.shoppingListAray[shoppingListIndex]
-        shoppingList.addProduct(product)
-        database.shoppingListAray[shoppingListIndex] = shoppingList
     }
 
     private func clearForm() {
