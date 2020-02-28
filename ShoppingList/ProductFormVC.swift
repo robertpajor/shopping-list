@@ -11,7 +11,8 @@ import UIKit
 class ProductFormVC: UIViewController {
     let categories: [String] = ["Fruits", "Vegetables", "Dairy", "Bread", "Drinks", "Accessories"]
     let units: [String] = ["pieces", "liters", "kilograms", "decagrams", "grams"]
-    var shoppingList: SchoppingList
+    var shoppingListIndex: Int
+    var database: Database
     var textFields: [UITextField] {
         [nameField, categoryField, quantityField, unitField]
     }
@@ -46,8 +47,9 @@ class ProductFormVC: UIViewController {
         addConstraints()
     }
 
-    init(for shoppingList: SchoppingList) {
-        self.shoppingList = shoppingList
+    init(forShoppingListIndex index: Int, in database: Database) {
+        self.shoppingListIndex = index
+        self.database = database
         super.init(nibName: nil, bundle: nil)
     }
 
@@ -171,7 +173,7 @@ class ProductFormVC: UIViewController {
     @objc func addButtonAction(sender: UIButton) {
         guard let product = getProduct() else { return }
 
-        shoppingList.products.append(product)
+        database.add(product: product, toShoppingListAtIndex: shoppingListIndex)
         clearForm()
     }
 

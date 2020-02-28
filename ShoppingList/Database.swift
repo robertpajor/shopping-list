@@ -9,5 +9,11 @@
 import Foundation
 
 class Database {
-    var shoppingListAray: [SchoppingList] = [SchoppingList(withName: "List 1")]
+    var shoppingListAray: [ShoppingList] = [ShoppingList(name: "List 1")]
+
+    func add(product: Product, toShoppingListAtIndex index: Int) {
+        var shoppingList = shoppingListAray[index]
+        shoppingList.addProduct(product)
+        shoppingListAray[index] = shoppingList
+    }
 }

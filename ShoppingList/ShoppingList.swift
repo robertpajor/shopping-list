@@ -8,26 +8,18 @@
 
 import Foundation
 
-class SchoppingList {
+struct ShoppingList {
     var name: String
-    var products: [Product]
+    var products: [Product] = []
 
-    init(withName name: String, products: [Product] = []) {
-        self.name = name
-        self.products = products
+    mutating func addProduct(_ product: Product) {
+        products.append(product)
     }
 }
 
-class Product {
+struct Product {
     var name: String
     var category: String
     var quantity: Float
     var unit: String?
-
-    init(name: String, category: String, quantity: Float, unit: String?) {
-        self.name = name
-        self.category = category
-        self.quantity = quantity
-        self.unit = unit
-    }
 }
