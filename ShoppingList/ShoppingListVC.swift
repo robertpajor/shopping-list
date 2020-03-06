@@ -47,8 +47,8 @@ class ShoppingListVC: UIViewController, UITableViewDelegate, UITableViewDataSour
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
-        let productForm = ProductFormVC(forShoppingListIndex: indexPath.row, in: database)
-        navigationController?.pushViewController(productForm, animated: true)
+        let productList = ProductListVC(forShoppingListIndex: indexPath.row, in: database)
+        navigationController?.pushViewController(productList, animated: true)
     }
 
     @IBAction func clickAddButton(_ sender: Any) {
