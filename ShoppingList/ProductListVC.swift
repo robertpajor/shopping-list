@@ -58,6 +58,8 @@ class ProductListVC: UIViewController {
         productsTable.register(ProductCell.self, forCellReuseIdentifier: "productCell")
         productsTable.dataSource = self
         productsTable.tableFooterView = UIView()
+        productsTable.estimatedRowHeight = 70
+        productsTable.rowHeight = UITableView.automaticDimension
         productsTable.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(productsTable)
     }
@@ -93,19 +95,10 @@ extension ProductListVC: UITableViewDataSource {
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "productCell", for: indexPath) // as! ProductCell
-        cell.textLabel?.text = database.shoppingListAray[listIndex].products[indexPath.row].name
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: "productCell", for: indexPath) as? ProductCell
+            else { return UITableViewCell() }
+        let product = database.shoppingListAray[listIndex].products[indexPath.row]
+        cell.updateData(for: product)
         return cell
-    }
-}
-
-class ProductCell: UITableViewCell {
-
-    override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
-        super.init(style: style, reuseIdentifier: reuseIdentifier)
-    }
-
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
     }
 }
