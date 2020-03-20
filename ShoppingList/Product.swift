@@ -10,7 +10,7 @@ import Foundation
 
 struct Product {
     var name: String
-    var category: String
+    var category: Category
     var quantity: Float
     var unit: String?
 }

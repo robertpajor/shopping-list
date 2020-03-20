@@ -9,11 +9,12 @@
 import UIKit
 
 class ProductCell: UITableViewCell {
+    var isCheckActive: Bool = false
     lazy var categoryImage: UIImageView = UIImageView()
     lazy var labelsContainer: UIView = UIView()
     lazy var nameLabel: UILabel = UILabel()
     lazy var unitLabel: UILabel = UILabel()
-    lazy var doneImage: UIImageView = UIImageView()
+    lazy var checkImage: UIImageView = UIImageView()
 
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -21,19 +22,19 @@ class ProductCell: UITableViewCell {
         initNameLabel()
         initUnitLabel()
         initLabelsContainer()
-        initDoneImage()
+        initCheckImage()
         addConstraint()
     }
 
     func initCategoryImage() {
-        categoryImage.image = UIImage(named: "dairy")
+        categoryImage.contentMode = .center
         categoryImage.translatesAutoresizingMaskIntoConstraints = false
         contentView.addSubview(categoryImage)
     }
 
     func initNameLabel() {
         nameLabel.textColor = .primaryGrey
-        nameLabel.font = UIFont.boldSystemFont(ofSize: 24)
+        nameLabel.font = UIFont.boldSystemFont(ofSize: 20)
         nameLabel.translatesAutoresizingMaskIntoConstraints = false
         labelsContainer.addSubview(nameLabel)
     }
@@ -49,19 +50,20 @@ class ProductCell: UITableViewCell {
         contentView.addSubview(labelsContainer)
     }
 
-    func initDoneImage() {
-        doneImage.image = UIImage(named: "done_0")
-        doneImage.translatesAutoresizingMaskIntoConstraints = false
-        contentView.addSubview(doneImage)
+    func initCheckImage() {
+        setCheckState()
+        checkImage.contentMode = .center
+        checkImage.translatesAutoresizingMaskIntoConstraints = false
+        contentView.addSubview(checkImage)
     }
 
     func addConstraint() {
         let constraints = [
             categoryImage.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 12),
-            categoryImage.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 5),
-            categoryImage.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -5),
-            categoryImage.widthAnchor.constraint(equalToConstant: 60),
-            categoryImage.heightAnchor.constraint(equalToConstant: 60),
+            categoryImage.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 12),
+            categoryImage.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -12),
+            categoryImage.widthAnchor.constraint(equalToConstant: 45),
+            categoryImage.heightAnchor.constraint(equalToConstant: 45),
             labelsContainer.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
             labelsContainer.leadingAnchor.constraint(equalTo: categoryImage.trailingAnchor, constant: 12),
             nameLabel.topAnchor.constraint(equalTo: labelsContainer.topAnchor, constant: 8),
@@ -71,11 +73,11 @@ class ProductCell: UITableViewCell {
             unitLabel.leadingAnchor.constraint(equalTo: labelsContainer.leadingAnchor),
             unitLabel.trailingAnchor.constraint(equalTo: labelsContainer.trailingAnchor),
             unitLabel.bottomAnchor.constraint(equalTo: labelsContainer.bottomAnchor),
-            doneImage.leadingAnchor.constraint(equalTo: labelsContainer.trailingAnchor, constant: 12),
-            doneImage.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -24),
-            doneImage.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
-            doneImage.widthAnchor.constraint(equalToConstant: 40),
-            doneImage.heightAnchor.constraint(equalToConstant: 40)
+            checkImage.leadingAnchor.constraint(equalTo: labelsContainer.trailingAnchor, constant: 12),
+            checkImage.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -24),
+            checkImage.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
+            checkImage.widthAnchor.constraint(equalToConstant: 45),
+            checkImage.heightAnchor.constraint(equalToConstant: 45)
 
         ]
         NSLayoutConstraint.activate(constraints)
@@ -83,9 +85,15 @@ class ProductCell: UITableViewCell {
 
     func updateData(for product: Product) {
         nameLabel.text = product.name
+        categoryImage.image = UIImage(named: product.category.iconName)
 
         let unit = product.unit ?? ""
         unitLabel.text = "\(product.quantity) \(unit)"
+    }
+
+    func setCheckState() {
+        checkImage.image = UIImage(named: isCheckActive ? "activeCheck" : "inactiveCheck")
+        isCheckActive = !isCheckActive
     }
 
     required init?(coder: NSCoder) {

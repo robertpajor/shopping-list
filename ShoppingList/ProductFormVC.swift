@@ -9,10 +9,12 @@
 import UIKit
 
 class ProductFormVC: UIViewController {
-    let categories: [String] = ["Fruits", "Vegetables", "Dairy", "Bread", "Drinks", "Accessories"]
     let units: [String] = ["pieces", "liters", "kilograms", "decagrams", "grams"]
     var shoppingListIndex: Int
     var database: Database
+    var categories: [String] {
+        database.categories.map { $0.name }
+    }
     var textFields: [UITextField] {
         [nameField, categoryField, quantityField, unitField]
     }
@@ -179,7 +181,8 @@ class ProductFormVC: UIViewController {
 
     private func getProduct() -> Product? {
         guard let productName = nameField.text, !productName.isEmpty,
-            let category = categoryField.text, !category.isEmpty,
+            let categoryName = categoryField.text, !categoryName.isEmpty,
+            let category = database.categories.first(where: { $0.name == categoryName }),
             let textQuantity = quantityField.text,
             let numberQuantity = Float(textQuantity) else { return nil }
 

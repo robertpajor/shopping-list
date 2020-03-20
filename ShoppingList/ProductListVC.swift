@@ -57,6 +57,7 @@ class ProductListVC: UIViewController {
     func initProductsTable() {
         productsTable.register(ProductCell.self, forCellReuseIdentifier: "productCell")
         productsTable.dataSource = self
+        productsTable.delegate = self
         productsTable.tableFooterView = UIView()
         productsTable.estimatedRowHeight = 70
         productsTable.rowHeight = UITableView.automaticDimension
@@ -89,7 +90,7 @@ class ProductListVC: UIViewController {
     }
 }
 
-extension ProductListVC: UITableViewDataSource {
+extension ProductListVC: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         database.shoppingListAray[listIndex].products.count
     }
@@ -100,5 +101,12 @@ extension ProductListVC: UITableViewDataSource {
         let product = database.shoppingListAray[listIndex].products[indexPath.row]
         cell.updateData(for: product)
         return cell
+    }
+
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
+        if let cell = tableView.cellForRow(at: indexPath) as? ProductCell {
+            cell.setCheckState()
+        }
     }
 }
