@@ -9,12 +9,16 @@
 import UIKit
 
 class ProductCell: UITableViewCell {
-    var isCheckActive: Bool = false
-    lazy var categoryImage: UIImageView = UIImageView()
-    lazy var labelsContainer: UIView = UIView()
-    lazy var nameLabel: UILabel = UILabel()
-    lazy var unitLabel: UILabel = UILabel()
-    lazy var checkImage: UIImageView = UIImageView()
+    let categoryImage: UIImageView = UIImageView()
+    let labelsContainer: UIView = UIView()
+    let nameLabel: UILabel = UILabel()
+    let unitLabel: UILabel = UILabel()
+    let checkImage: UIImageView = UIImageView()
+    var isChecked: Bool = false {
+        didSet {
+            checkImage.image = UIImage(named: isChecked ? "activeCheck" : "inactiveCheck")
+        }
+    }
 
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -51,7 +55,7 @@ class ProductCell: UITableViewCell {
     }
 
     func initCheckImage() {
-        setCheckState()
+        isChecked = false
         checkImage.contentMode = .center
         checkImage.translatesAutoresizingMaskIntoConstraints = false
         contentView.addSubview(checkImage)
@@ -78,7 +82,6 @@ class ProductCell: UITableViewCell {
             checkImage.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
             checkImage.widthAnchor.constraint(equalToConstant: 45),
             checkImage.heightAnchor.constraint(equalToConstant: 45)
-
         ]
         NSLayoutConstraint.activate(constraints)
     }
@@ -86,14 +89,12 @@ class ProductCell: UITableViewCell {
     func updateData(for product: Product) {
         nameLabel.text = product.name
         categoryImage.image = UIImage(named: product.category.iconName)
-
         let unit = product.unit ?? ""
         unitLabel.text = "\(product.quantity) \(unit)"
     }
 
-    func setCheckState() {
-        checkImage.image = UIImage(named: isCheckActive ? "activeCheck" : "inactiveCheck")
-        isCheckActive = !isCheckActive
+    func toggleSelection() {
+        isChecked = !isChecked
     }
 
     required init?(coder: NSCoder) {
