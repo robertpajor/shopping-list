@@ -9,10 +9,10 @@
 import UIKit
 
 class ProductListVC: UIViewController {
-    var database: Database
-    var listIndex: Int
-    lazy var emptyListLabel: UILabel = UILabel()
-    lazy var productsTable: UITableView = UITableView()
+    let emptyListLabel: UILabel = UILabel()
+    let productsTable: UITableView = UITableView()
+    private var database: Database
+    private var listIndex: Int
 
     override func viewDidLoad() {
         initView()
@@ -38,14 +38,14 @@ class ProductListVC: UIViewController {
         fatalError("init(coder:) has not been implemented")
     }
 
-    func initView() {
+    private func initView() {
         view.backgroundColor = .white
         title = database.shoppingListAray[listIndex].name
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Add", style: .plain, target: self,
                                                             action: #selector(addProduct))
     }
 
-    func initEmptyListLabel() {
+    private func initEmptyListLabel() {
         emptyListLabel.text = "Please add first product"
         emptyListLabel.textColor = .secondaryGrey
         emptyListLabel.textAlignment = .center
@@ -54,7 +54,7 @@ class ProductListVC: UIViewController {
         view.addSubview(emptyListLabel)
     }
 
-    func initProductsTable() {
+    private func initProductsTable() {
         productsTable.register(ProductCell.self, forCellReuseIdentifier: "productCell")
         productsTable.dataSource = self
         productsTable.delegate = self
@@ -65,13 +65,12 @@ class ProductListVC: UIViewController {
         view.addSubview(productsTable)
     }
 
-    @objc func addProduct() {
+    @objc private func addProduct() {
         let productFormVC = ProductFormVC(forShoppingListIndex: listIndex, in: database)
         navigationController?.pushViewController(productFormVC, animated: true)
-
     }
 
-    func addConstraints() {
+    private func addConstraints() {
         let constraints = [
             emptyListLabel.centerYAnchor.constraint(equalTo: view.safeAreaLayoutGuide.centerYAnchor, constant: 0),
             emptyListLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
