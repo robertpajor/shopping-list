@@ -16,10 +16,3 @@ struct ShoppingList {
         products.append(product)
     }
 }
-
-struct Product {
-    var name: String
-    var category: String
-    var quantity: Float
-    var unit: String?
-}
